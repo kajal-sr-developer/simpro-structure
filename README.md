@@ -161,3 +161,67 @@ Production:
 config.cache_classes = true
 config.eager_load = true
 ```
+# HubSpot Custom Objects Setup
+
+This repository contains rake tasks for creating custom objects in HubSpot CRM. These tasks set up the necessary schema, properties, and groups for various business entities.
+
+## Available Tasks
+
+### 1. Cost Centers
+Creates a custom object for Cost Centers with:
+- Primary display property: `name`
+- Properties group: `cost_center_information`
+- Properties:
+  - name
+  - simpro_id
+
+rake hubspot:create_cost_center
+
+### 2. Jobs
+Creates a custom object for Jobs with multiple property groups:
+- job_information
+- resources_cost
+- gross_margin
+- materials_cost
+- sync_info
+
+rake hubspot:create_job_object
+
+Key properties include job details, costs, margins, and synchronization information.
+
+### 3. Sites
+Creates a custom object for Sites with:
+- Primary display property: `site_name`
+- Properties group: `site_information`
+- Properties include:
+  - site_name
+  - country
+  - postal details
+  - primary contact information
+  rake hubspot:create_site_object
+
+## Setup
+
+1. Ensure you have the required environment variables:
+
+```bash
+HUBSPOT_API_KEY=your_api_key
+```
+
+2. The tasks use HTTParty for API communication. Make sure it's included in your Gemfile:
+```ruby
+gem 'httparty'
+```
+
+## Usage
+
+Each task can be run independently to create its respective custom object structure in HubSpot. The tasks handle:
+- Custom object creation
+- Property groups setup
+- Individual properties creation with appropriate field types
+
+## Note
+
+- These tasks should typically be run only once during initial setup
+- Running them multiple times may result in API errors if the objects already exist
+- Make sure you have the necessary HubSpot API permissions
